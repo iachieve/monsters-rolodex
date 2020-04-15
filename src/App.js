@@ -10,19 +10,23 @@ class App extends Component {
     searchField: ''
   };
 
-
   componentDidMount() {
     // fetch('https://jsonplaceholder.typicode.com/users')
     //   .then(res => res.json())
     //   .then(users => this.setState({ monsters: users }));
 
     this.setState((prevState, prevProps)=>{
-      return {monsters: users.sort(()=> Math.random() -0.5)};
-    })
+      return {
+        monsters: users.sort(()=> Math.random() -0.5)
+      };
+    });
   };
 
   handleChange = (e) => {
     this.setState({ searchField: e.target.value });
+  }
+  componentDidUpdate(){
+    console.log('object')
   }
   render() {
     const { searchField, monsters } = this.state;
@@ -31,6 +35,7 @@ class App extends Component {
 
     return (
       <div className="App">
+        <h2>{this.state.isLoading}</h2>
         <h1>Monster Rolodex</h1>
         <SearchBox placeholder="Search Monsters"
           handleChange={this.handleChange}
