@@ -1,25 +1,24 @@
 import React, { Component } from 'react';
 import { CardList } from './components/card-list/card-list.component';
 import { SearchBox } from './components/search/search-box.component';
-import {users} from './db/users'
+import { users } from './db/users'
 import './App.css';
 
 class App extends Component {
-  constructor() {
-    super();
-    this.state = {
-      monsters: [],
-      searchField: ''
-    };
-    // this.handleChange = this.handleChange.bind(this);
-  }
+  state = {
+    monsters: [],
+    searchField: ''
+  };
+
 
   componentDidMount() {
     // fetch('https://jsonplaceholder.typicode.com/users')
     //   .then(res => res.json())
     //   .then(users => this.setState({ monsters: users }));
 
-    this.setState({ monsters: users});
+    this.setState((prevState, prevProps)=>{
+      return {monsters: users.sort(()=> Math.random() -0.5)};
+    })
   };
 
   handleChange = (e) => {
