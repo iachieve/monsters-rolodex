@@ -1,29 +1,43 @@
 import React, { Component } from 'react';
+import { CardList } from './components/card-list/card-list.component';
+import { SearchBox } from './components/search/search-box.component';
 import './App.css';
-
-
 class App extends Component {
   constructor() {
     super();
     this.state = {
-      monsters: []
+      monsters: [],
+      searchField: ''
     };
+    // this.handleChange = this.handleChange.bind(this);
   }
 
-  componentDidMount(){
+  componentDidMount() {
     fetch('https://jsonplaceholder.typicode.com/users')
-    .then(res=> res.json())
-    .then(users => this.setState({monsters: users}))
-  }
+      .then(res => res.json())
+      .then(users => this.setState({ monsters: users }))
+  };
 
+  handleChange = (e) => {
+    this.setState({ searchField: e.target.value });
+  }
   render() {
+    const { searchField, monsters } = this.state;
+    const filteredMonsters = monsters.filter(mon =>
+      mon.name.toLowerCase().includes(searchField.toLowerCase()));
+
     return (
       <div className="App">
-        {
-          this.state.monsters.map((mon, i) => <h1 key={mon.id}>{mon.name}</h1>)
-        }
-      </div>
 
+
+
+
+        <h1>Monster Rolodex</h1>
+        <SearchBox placeholder="Search Monsters"
+          handleChange={this.handleChange}
+        />
+        <CardList monsters={filteredMonsters} />
+      </div>
     );
   }
 }
