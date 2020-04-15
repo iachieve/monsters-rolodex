@@ -12,5 +12,3 @@ export const Card = ({ monster }) => {
     </div>
   )
 };
-
-export default Card
